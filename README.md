@@ -142,56 +142,58 @@ php artisan serve
 
 ## 📁 ディレクトリ構成
 
-atte/  
-  app/  
-    Http/  
-      Controllers/  
-        AuthController.php           # 一般認証  
-        AttendanceController.php     # 勤怠管理  
-        CorrectionController.php     # 修正申請  
-        ReportController.php         # レポート表示  
-        Admin/                       # 管理者機能  
-          AuthController.php  
-          AttendanceController.php  
-          StaffController.php  
-          CorrectionController.php  
-          Api/V1/  
-            AttendanceRecordController.php  # API  
-      Requests/                        # バリデーション  
-      Middleware/  
-        AdminMiddleware.php  
-      Resources/  
-        AttendanceRecordResource.php  
-  UserResource.php  
-   ...  
-  Policies/  
-      AttendanceRecordPolicy.php  
- Models/  
- User.php  
- AttendanceRecord.php  
- BreakRecord.php  
- AttendanceCorrection.php  
-  BreakCorrection.php  
- Exceptions/  
-     Handler.php  
-database/  
- migrations/                          # テーブル定義  
- seeders/                             # ダミーデータ  
- factories/                           # ファクトリー  
-resources/  
- views/                               # Bladeテンプレート  
-    auth/  
-    attendance/  
-    correction/  
-    admin/  
-     layouts/  
-routes/  
- web.php                              # 一般・管理者ルート  
- api.php                              # APIルート  
-tests/  
- Feature/                             # 機能テスト  
- Unit/                                # ユニットテスト  
-docker-compose.yml  
+```
+atte/
+  app/
+    Http/
+      Controllers/
+        AuthController.php           # 一般認証
+        AttendanceController.php     # 勤怠管理
+        CorrectionController.php     # 修正申請
+        ReportController.php         # レポート表示
+        Admin/                       # 管理者機能
+          AuthController.php
+          AttendanceController.php
+          StaffController.php
+          CorrectionController.php
+          Api/V1/
+            AttendanceRecordController.php  # API
+      Requests/                        # バリデーション
+      Middleware/
+        AdminMiddleware.php
+      Resources/
+        AttendanceRecordResource.php
+  UserResource.php
+   ...
+  Policies/
+      AttendanceRecordPolicy.php
+ Models/
+ User.php
+ AttendanceRecord.php
+ BreakRecord.php
+ AttendanceCorrection.php
+  BreakCorrection.php
+ Exceptions/
+     Handler.php
+database/
+ migrations/                          # テーブル定義
+ seeders/                             # ダミーデータ
+ factories/                           # ファクトリー
+resources/
+ views/                               # Bladeテンプレート
+    auth/
+    attendance/
+    correction/
+    admin/
+     layouts/
+routes/
+ web.php                              # 一般・管理者ルート
+ api.php                              # APIルート
+tests/
+ Feature/                             # 機能テスト
+ Unit/                                # ユニットテスト
+docker-compose.yml
+```
 
 ---
 
