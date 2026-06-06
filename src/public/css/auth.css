@@ -1,0 +1,74 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  background: #f8f8f8;
+  color: #333;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.button {
+  margin: 0 auto;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  display: block;
+}
+
+.auth__switch {
+  text-align: center;
+  color: #55f;
+}
+
+.button--primary {
+  background: #333;
+  color: white;
+  border: none;
+}
+
+.button--block {
+  margin-top: 70px;
+  width: 80%;
+}
+
+.auth__title {
+  text-align: center;
+}
+
+.form__group {
+  margin: 30px auto;
+  width: 80%;
+}
+
+.form__label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form__input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.form__error {
+  color: red;
+  font-size: 13px;
+  margin-top: 6px;
+}
