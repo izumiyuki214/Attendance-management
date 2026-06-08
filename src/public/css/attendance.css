@@ -1,0 +1,97 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  background: #f8f8f8;
+  color: #333;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* =============================================
+   Button 共通
+   ============================================= */
+.button {
+  margin: 0 auto;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  display: block;
+  border: none;
+  font-size: 16px;
+}
+
+.button--primary {
+  background: #333;
+  color: #fff;
+}
+
+.button--secondary {
+  background: #fff;
+  color: #333;
+  border: 1px solid #333;
+}
+
+.button--attendance {
+  width: 200px;
+  margin: 50px 0;
+  padding: 16px;
+  font-size: 18px;
+}
+
+/* =============================================
+   打刻画面
+   ============================================= */
+.attendance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  gap: 24px;
+}
+
+.attendance__datetime {
+  text-align: center;
+}
+
+.attendance__date {
+  font-size: 18px;
+  margin: 0 0 8px;
+}
+
+.attendance__time {
+  font-size: 64px;
+  font-weight: bold;
+  margin: 0;
+  line-height: 1;
+}
+
+.attendance__status {
+  font-size: 20px;
+  font-weight: bold;
+  background: #bbb;
+  border-radius: 20px;
+  padding: 5px 10px;
+  margin: 0;
+  color: #555;
+}
+
+.attendance__actions {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.attendance__finished-message {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 50px 0;
+}
