@@ -1,0 +1,32 @@
+.guidance-text {
+  margin: 5px auto;
+  text-align: center;
+}
+
+.guidance-btn {
+  margin: 30px auto;
+  text-align: center;
+}
+
+.guidance-btn--a {
+  border: 1px solid #000;
+  background: #ccc;
+  padding: 5px 16px;
+  border-radius: 4px;
+  color: #000;
+  text-decoration: none;
+}
+
+.resend-message {
+  color: #5f5;
+  text-align: center;
+}
+
+.resend-submit {
+  margin: 0 auto;
+  display: block;
+  border: none;
+  background: none;
+  color: #55f;
+  cursor: pointer;
+}
