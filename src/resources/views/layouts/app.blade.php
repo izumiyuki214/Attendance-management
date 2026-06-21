@@ -11,7 +11,7 @@
     <header class="header">
         <div class="header__inner">
             <div class="header-left">
-                <a href="{{ url('/') }}" class="header__logo">
+                <a href="{{ url('/attendance') }}" class="header__logo">
                     <img class="header__logo-img" src="{{ asset('img/header-logo.png') }}" alt="atte">
                 </a>
             </div>
@@ -39,6 +39,7 @@
                         <a href="{{ route('attendance.index') }}" class="header__link">勤怠</a>
                         <a href="{{ route('attendance.list') }}" class="header__link">勤怠一覧</a>
                         <a href="{{ route('correction.list') }}" class="header__link">申請</a>
+                        <a href="{{ url('/attendance/report') }}" class="header__link">レポート</a>
                         <form action="{{ route('logout') }}" method="POST" class="header__logout-form">
                             @csrf
                             <button type="submit" class="header__link header__logout-button">ログアウト</button>
