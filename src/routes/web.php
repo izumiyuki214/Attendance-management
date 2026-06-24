@@ -55,7 +55,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // ========================================
 // ゲスト（管理者）
 // ========================================
-Route::prefix('admin')->middleware('guest:admin')->group(function () {
+Route::prefix('admin')->middleware('guest')->group(function () {
     Route::get('/login', [Admin\AuthController::class, 'showLogin'])->name('admin.login');
     Route::post('/login', [Admin\AuthController::class, 'login']);
 });

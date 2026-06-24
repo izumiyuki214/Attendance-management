@@ -1,0 +1,11 @@
+/* ===========================
+   admin-attendance-list.css
+   管理者勤怠一覧固有スタイル
+   attendance-list.css を読み込んだ後に適用
+=========================== */
+
+/* 名前列：やや広め */
+.attendance-table__th,
+.attendance-table__td {
+  text-align: center;
+}
