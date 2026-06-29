@@ -1,0 +1,28 @@
+/* ===========================
+   admin-staff.css
+   スタッフ別勤怠一覧固有スタイル
+   attendance-list.css を読み込んだ後に適用
+=========================== */
+
+/* フッター：CSV出力ボタンを右寄せ */
+.staff-list__footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+/* CSV出力ボタン */
+.button--csv {
+  background: #333;
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.button--csv:hover {
+  background: #555;
+}

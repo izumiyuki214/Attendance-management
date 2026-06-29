@@ -41,7 +41,7 @@ body {
 
 .detail-table__row {
   background: #fff;
-  border-bottom: 3px solid #eee;
+  border-top: 3px solid #eee;
 }
 
 .detail-table__th {
@@ -52,7 +52,6 @@ body {
   font-weight: bold;
   color: #666;
   background: #fff;
-  border-bottom: 1px solid #eee;
 }
 
 .detail-table__td {
@@ -123,6 +122,17 @@ body {
   resize: none;
 }
 
+.detail-input__error {
+  color: red;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.detail-table__row--error {
+  background: #fff;
+  border: none;
+}
+
 /* --- フッター --- */
 .detail-footer {
   display: flex;
@@ -136,6 +146,8 @@ body {
   font-weight: bold;
   margin: 0;
 }
+
+
 
 /* --- ボタン --- */
 .button {
