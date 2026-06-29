@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AttendanceRequest;
+use App\Models\AttendanceCorrection;
 use App\Models\AttendanceRecord;
 use App\Models\BreakRecord;
 use Carbon\Carbon;
@@ -14,10 +15,12 @@ use Illuminate\View\View;
 class AttendanceController extends Controller
 {
     // ステータス定数
-    private const STATUS_OFF_WORK  = 'off_work';
-    private const STATUS_WORKING   = 'working';
-    private const STATUS_ON_BREAK  = 'on_break';
-    private const STATUS_FINISHED  = 'finished';
+    private const STATUS_OFF_WORK = 'off_work';
+    private const STATUS_WORKING  = 'working';
+    private const STATUS_ON_BREAK = 'on_break';
+    private const STATUS_FINISHED = 'finished';
+
+    private const CORRECTION_STATUS_PENDING = 'pending';
 
     // ========================================
     // 打刻画面
@@ -28,9 +31,9 @@ class AttendanceController extends Controller
      */
     public function index(): View
     {
-        $user   = Auth::user();
-        $today  = Carbon::today();
-        $now    = Carbon::now();
+        $user  = Auth::user();
+        $today = Carbon::today();
+        $now   = Carbon::now();
 
         $attendance = AttendanceRecord::where('user_id', $user->id)
             ->whereDate('date', $today)
@@ -46,9 +49,9 @@ class AttendanceController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $user   = Auth::user();
-        $today  = Carbon::today();
-        $now    = Carbon::now();
+        $user  = Auth::user();
+        $today = Carbon::today();
+        $now   = Carbon::now();
 
         $attendance = AttendanceRecord::where('user_id', $user->id)
             ->whereDate('date', $today)
@@ -57,11 +60,11 @@ class AttendanceController extends Controller
         $action = $request->input('action');
 
         match ($action) {
-            'clock_in'      => $this->clockIn($user->id, $today, $now),
-            'break_start'   => $this->breakStart($attendance, $now),
-            'break_end'     => $this->breakEnd($attendance, $now),
-            'clock_out'     => $this->clockOut($attendance, $now),
-            default         => null,
+            'clock_in'    => $this->clockIn($user->id, $today, $now, $attendance),
+            'break_start' => $this->breakStart($attendance, $now),
+            'break_end'   => $this->breakEnd($attendance, $now),
+            'clock_out'   => $this->clockOut($attendance, $now),
+            default       => null,
         };
 
         return redirect()->route('attendance.index');
@@ -70,8 +73,12 @@ class AttendanceController extends Controller
     /**
      * 出勤処理
      */
-    private function clockIn(int $userId, Carbon $today, Carbon $now): void
+    private function clockIn(int $userId, Carbon $today, Carbon $now, ?AttendanceRecord $attendance): void
     {
+        if ($attendance) {
+            return;
+        }
+
         AttendanceRecord::create([
             'user_id'  => $userId,
             'date'     => $today->toDateString(),
@@ -83,8 +90,12 @@ class AttendanceController extends Controller
     /**
      * 休憩開始処理
      */
-    private function breakStart(AttendanceRecord $attendance, Carbon $now): void
+    private function breakStart(?AttendanceRecord $attendance, Carbon $now): void
     {
+        if (!$attendance) {
+            return;
+        }
+
         BreakRecord::create([
             'attendance_record_id' => $attendance->id,
             'break_start'          => $now,
@@ -96,8 +107,12 @@ class AttendanceController extends Controller
     /**
      * 休憩終了処理
      */
-    private function breakEnd(AttendanceRecord $attendance, Carbon $now): void
+    private function breakEnd(?AttendanceRecord $attendance, Carbon $now): void
     {
+        if (!$attendance) {
+            return;
+        }
+
         $attendance->breakRecords()
             ->whereNull('break_end')
             ->latest('break_start')
@@ -110,8 +125,12 @@ class AttendanceController extends Controller
     /**
      * 退勤処理
      */
-    private function clockOut(AttendanceRecord $attendance, Carbon $now): void
+    private function clockOut(?AttendanceRecord $attendance, Carbon $now): void
     {
+        if (!$attendance) {
+            return;
+        }
+
         $attendance->update([
             'clock_out' => $now,
             'status'    => self::STATUS_FINISHED,
@@ -166,29 +185,44 @@ class AttendanceController extends Controller
 
         $date = $attendance->date;
 
-        $attendance->corrections()->create([
+        $correction = $attendance->attendanceCorrections()->create([
             'user_id'              => Auth::id(),
             'attendance_record_id' => $attendance->id,
-            'clock_in'             => Carbon::parse($date . ' ' . $request->clock_in),
-            'clock_out'            => Carbon::parse($date . ' ' . $request->clock_out),
-            'status'               => 'pending',
+            'clock_in'             => $this->combineDateAndTime($date, $request->clock_in),
+            'clock_out'            => $this->combineDateAndTime($date, $request->clock_out),
+            'status'               => self::CORRECTION_STATUS_PENDING,
             'comment'              => $request->comment,
         ]);
 
-        $breaks = collect($request->input('breaks', []))
-            ->filter(fn($b) => filled($b['break_start'] ?? null));
+        $this->storeBreakCorrections($correction, $date, $request->input('breaks', []));
 
-        $correction = $attendance->corrections()->latest()->first();
+        return redirect()->back();
+    }
 
-        $breaks->each(function ($break) use ($correction, $date) {
-            $correction->breakCorrections()->create([
-                'break_start' => Carbon::parse($date . ' ' . $break['break_start']),
-                'break_end'   => filled($break['break_end'] ?? null)
-                    ? Carbon::parse($date . ' ' . $break['break_end'])
-                    : null,
-            ]);
-        });
+    /**
+     * 修正申請に紐づく休憩修正レコードを登録する
+     */
+    private function storeBreakCorrections(AttendanceCorrection $correction, Carbon $date, array $breaks): void
+    {
+        collect($breaks)
+            ->filter(fn ($break) => filled($break['break_start'] ?? null))
+            ->each(function ($break) use ($correction, $date) {
+                $correction->breakCorrections()->create([
+                    'break_start' => $this->combineDateAndTime($date, $break['break_start']),
+                    'break_end'   => filled($break['break_end'] ?? null)
+                        ? $this->combineDateAndTime($date, $break['break_end'])
+                        : null,
+                ]);
+            });
+    }
 
-        return redirect()->route('correction.list');
+    /**
+     * 日付（Carbon）と "H:i" 形式の時刻文字列を結合してCarbonインスタンスを生成する
+     */
+    private function combineDateAndTime(Carbon $date, string $time): Carbon
+    {
+        [$hour, $minute] = array_map('intval', explode(':', $time));
+
+        return $date->copy()->setTime($hour, $minute);
     }
 }

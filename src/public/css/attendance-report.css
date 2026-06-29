@@ -1,0 +1,182 @@
+body {
+  background: #fff;
+}
+
+/* =============================================
+   マイ勤怠レポート
+   ============================================= */
+.attendance-report {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.attendance-report__title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.attendance-report__lead {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 0 32px;
+}
+
+.attendance-report__section {
+  margin-bottom: 40px;
+}
+
+.attendance-report__heading {
+  font-size: 16px;
+  font-weight: bold;
+
+  margin-bottom: 16px;
+}
+
+.attendance-report__note {
+  font-size: 13px;
+  font-weight: bold;
+  color: #666;
+  margin: -4px 0 16px;
+}
+
+/* --- サマリーグリッド --- */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.summary-grid__item {
+  padding: 24px 15px;
+  background: #f8f8f8;
+  border-radius: 5px;
+  border: 1px solid #999;
+}
+
+.summary-grid__label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #666;
+  margin: 0 0 12px;
+}
+
+.summary-grid__value {
+  font-size: 22px;
+  font-weight: bold;
+  color: #000;
+  margin: 0;
+}
+
+/* --- 月次推移テーブル --- */
+.trend-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.trend-table__row {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.trend-table__th {
+  padding: 10px 24px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.trend-table__th:nth-child(2),
+.trend-table__th:nth-child(3),
+.trend-table__td:nth-child(2),
+.trend-table__td:nth-child(3) {
+  text-align: right;
+}
+
+.trend-table__td {
+  padding: 10px 24px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #000;
+  text-align: left;
+}
+
+/* =============================================
+   PC (1400-1540px)
+   ============================================= */
+@media (min-width: 1400px) and (max-width: 1540px) {
+  .attendance-report {
+    max-width: 900px;
+    padding: 48px 40px;
+  }
+
+  .attendance-report__title {
+    font-size: 24px;
+  }
+
+  .attendance-report__heading {
+    font-size: 17px;
+  }
+
+  .summary-grid__value {
+    font-size: 24px;
+  }
+
+  .trend-table__th,
+  .trend-table__td {
+    font-size: 16px;
+    padding: 18px 24px;
+  }
+}
+
+/* =============================================
+   タブレット (768-850px)
+   ============================================= */
+@media (min-width: 768px) and (max-width: 850px) {
+  .attendance-report {
+    max-width: 700px;
+    padding: 24px 16px;
+  }
+
+  .attendance-report__title {
+    font-size: 18px;
+  }
+
+  .attendance-report__heading {
+    font-size: 14px;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-grid__item {
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  .summary-grid__item:last-child {
+    border-bottom: none;
+  }
+
+  .summary-grid__value {
+    font-size: 18px;
+  }
+
+  .trend-table__th {
+    padding: 12px 12px;
+    font-size: 12px;
+  }
+
+  .trend-table__td {
+    padding: 12px 12px;
+    font-size: 13px;
+  }
+}

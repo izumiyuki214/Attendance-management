@@ -1,0 +1,235 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  background: #eee;
+  color: #000;
+}
+
+/* =============================================
+   勤怠詳細
+   ============================================= */
+.attendance-detail {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.attendance-detail__title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  padding-left: 12px;
+  border-left: 8px solid #000;
+}
+
+/* --- テーブル --- */
+.detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.detail-table td:nth-child(2) {
+  width: 150px;
+}
+
+
+.detail-table__row {
+  background: #fff;
+  border-top: 3px solid #eee;
+}
+
+.detail-table__th {
+  width: 40%;
+  padding: 16px 50px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+  color: #666;
+  background: #fff;
+}
+
+.detail-table__td {
+  max-width: 150px;
+  padding: 16px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  text-align: left !important;
+}
+
+.detail-date {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.detail-date__year {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.detail-date__monthday {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.detail-table__td--separator {
+  width: 60px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 16px 0;
+  color: #666;
+}
+
+/* --- 入力欄 --- */
+.detail-input {
+  width: 100px;
+  text-align: center;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  font-family: inherit;
+  color: #000;
+  background: #fff;
+}
+
+.detail-input:disabled {
+  border-color: transparent;
+  background: #fff;
+  color: #000;
+  cursor: default;
+}
+
+.detail-input--year {
+  width: 80px;
+}
+
+.detail-input--month,
+.detail-input--day {
+  width: 60px;
+}
+
+.detail-input--comment {
+  text-align: left;
+  width: 310px;
+  resize: none;
+}
+
+.detail-input__error {
+  color: red;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.detail-table__row--error {
+  background: #fff;
+  border: none;
+}
+
+/* --- フッター --- */
+.detail-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 32px;
+}
+
+.detail-footer__pending {
+  font-size: 14px;
+  color: #f97316;
+  font-weight: bold;
+  margin: 0;
+}
+
+
+
+/* --- ボタン --- */
+.button {
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block;
+  border: none;
+  font-size: 15px;
+}
+
+.button--primary {
+  background: #333;
+  color: #fff;
+}
+
+.button--primary:hover {
+  background: #555;
+}
+
+.button--submit {
+  width: 120px;
+  text-align: center;
+}
+
+/* =============================================
+   PC (1400-1540px)
+   ============================================= */
+@media (min-width: 1400px) and (max-width: 1540px) {
+  .attendance-detail {
+    max-width: 900px;
+    padding: 48px 40px;
+  }
+
+  .attendance-detail__title {
+    font-size: 24px;
+  }
+
+  .detail-table__th,
+  .detail-table__td {
+    font-size: 17px;
+    padding: 18px 24px;
+  }
+}
+
+/* =============================================
+   タブレット (768-850px)
+   ============================================= */
+@media (min-width: 768px) and (max-width: 850px) {
+  .attendance-detail {
+    max-width: 700px;
+    padding: 24px 16px;
+  }
+
+  .attendance-detail__title {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .detail-table__th {
+    width: 120px;
+    padding: 12px 12px;
+    font-size: 13px;
+  }
+
+  .detail-table__td {
+    padding: 12px 12px;
+    font-size: 13px;
+  }
+
+  .detail-input {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+
+  .detail-input--year {
+    width: 64px;
+  }
+
+  .detail-input--month,
+  .detail-input--day {
+    width: 48px;
+  }
+}

@@ -1,0 +1,124 @@
+/* =============================================
+   申請一覧
+   ============================================= */
+.correction-list {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.correction-list__title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  padding-left: 12px;
+  border-left: 8px solid #000;
+}
+
+/* --- タブ --- */
+.correction-list__tabs {
+  display: flex;
+  gap: 12px;
+  margin: 50px 0;
+  padding: 10px 50px;
+  border-bottom: 1px solid #000;
+}
+
+.correction-list__tab {
+  width: 100px;
+  font-size: 15px;
+  font-weight: normal;
+  text-decoration: none;
+  color: #000;
+}
+
+.correction-list__tab--active {
+  font-weight: bold;
+}
+
+/* --- テーブル --- */
+.correction-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.correction-table__row {
+  background: #fff;
+  border-bottom: 3px solid #eee;
+}
+
+.correction-table__th {
+  padding: 16px 20px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  color: #666;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.correction-table__td {
+  padding: 16px 20px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #666;
+  text-align: left;
+}
+
+/* --- 詳細リンク --- */
+.correction-table__link {
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* =============================================
+   PC (1400-1540px)
+   ============================================= */
+@media (min-width: 1400px) and (max-width: 1540px) {
+  .correction-list {
+    max-width: 900px;
+    padding: 48px 40px;
+  }
+
+  .correction-list__title {
+    font-size: 24px;
+  }
+
+  .correction-table__th,
+  .correction-table__td {
+    font-size: 16px;
+    padding: 18px 24px;
+  }
+}
+
+/* =============================================
+   タブレット (768-850px)
+   ============================================= */
+@media (min-width: 768px) and (max-width: 850px) {
+  .correction-list {
+    max-width: 700px;
+    padding: 24px 16px;
+  }
+
+  .correction-list__title {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .correction-list__tab {
+    font-size: 13px;
+  }
+
+  .correction-table__th {
+    padding: 12px 12px;
+    font-size: 12px;
+  }
+
+  .correction-table__td {
+    padding: 12px 12px;
+    font-size: 13px;
+  }
+}

@@ -6,6 +6,8 @@ body {
   margin: 0 auto;
   font-family: Arial, sans-serif;
   background: #f8f8f8;
+  max-width: 100%;
+  overflow-x: hidden;
   color: #333;
 }
 
