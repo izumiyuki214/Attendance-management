@@ -1,0 +1,13 @@
+/* ===========================
+   admin-correction.css
+   承認画面固有スタイル
+   attendance-detail.css を読み込んだ後に適用
+=========================== */
+
+.button--approved {
+  background: #888;
+  color: #fff;
+  width: 120px;
+  text-align: center;
+  cursor: default;
+}

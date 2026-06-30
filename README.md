@@ -1,157 +1,143 @@
-# Attendance-management
-# 勤怠管理システム
+# 勤怠管理システム（atte）
 
-従業員の出勤・退勤管理、休憩時間の記録、勤怠データの修正申請・承認を行うLaravelベースの勤怠管理システムです。一般ユーザーと管理者の2つのロールで異なる画面・機能を提供します。
+## 1. サービス概要
+
+本サービスは、一般ユーザー（スタッフ）と管理者の双方が利用できる勤怠管理システムです。
+
+一般ユーザーは出勤・退勤・休憩の打刻、勤怠一覧・詳細の確認、勤怠修正申請、マイ勤怠レポートの閲覧が行えます。管理者は全スタッフの日別・月別勤怠の確認、勤怠情報の直接修正、修正申請の承認、CSV形式での勤怠データ出力が行えます。
+
+**仕様変更点**
+
+- 勤怠一覧画面（一般・管理者共通）において、当該月（または当該日）に勤怠記録（`attendance_records`）が存在しない日付の行は表示しない仕様に変更しています。打刻が行われていない日は一覧上に表示されません。
 
 ---
 
-## 🎯 システム概要
+## 2. 使用技術
 
-### 対応ユーザー
-- **一般ユーザー**: 自分の勤怠情報の登録・確認・修正申請
-- **管理者**: 全従業員の勤怠管理・修正申請の承認・レポート確認
-
-### 主要技術スタック
 | 用途 | 技術 |
 |---|---|
-| フレームワーク | Laravel |
-| 認証 | Laravel Fortify / Laravel Sanctum |
+| フレームワーク | Laravel 8（Framework 8.83.29） |
+| 認証 | Laravel Fortify |
 | バリデーション | FormRequest |
+| API認証 | Laravel Sanctum |
+| メール認証 | Mailhog または Mailtrap |
 | テスト | PHPUnit |
-| 開発環境 | Docker (Windows + WSL2) |
-| メール検証 | Mailhog / Mailtrap |
+| 開発環境 | Docker（Windows + WSL2） |
+| フロントエンド | Blade テンプレート、CSS（個別ファイル管理） |
 
 ---
 
+## 3. 環境構築
 
-## 💻 システム要件
+### 前提
 
-- **PHP**: 8.0以上
-- **Laravel**: 8.0以上
-- **Docker**: 最新版
-- **WSL2** (Windows開発環境の場合)
-- **Node.js**: 14.0以上（フロントエンド構築時）
+- Docker / Docker Compose がインストールされていること
+- WSL2環境（Windowsの場合）
 
----
+### 手順
 
-## 🚀 セットアップ
+1. リポジトリをクローン
 
-### 1. リポジトリのクローン
-```bash
-git clone <repository-url>
-cd atte
-```
+   ```bash
+   git clone <repository-url>
+   cd atte
+   ```
 
-### 2. 環境変数の設定
-```bash
-cp .env.example .env
-php artisan key:generate
-```
+2. 環境変数ファイルを作成
 
-### 3. Dockerコンテナの起動
-```bash
-docker-compose up -d
-```
+   ```bash
+   cp .env.example .env
+   ```
 
-### 4. 依存パッケージのインストール
-```bash
-composer install
-npm install
-```
+   `.env` のDB接続情報・メール設定（Mailhog/Mailtrap）を必要に応じて編集してください。
 
-### 5. データベース初期化
-```bash
-php artisan migrate
-php artisan db:seed
-```
+3. Dockerコンテナを起動
 
-### 6. メール検証の設定
-Mailhog または Mailtrap を使用。`.env` の設定例：
-```
-MAIL_DRIVER=smtp
-MAIL_HOST=mailhog
-MAIL_PORT=1025
-```
+   ```bash
+   docker compose up -d --build
+   ```
 
-### 7. アプリケーション起動
-```bash
-php artisan serve
-```
+4. Composer依存関係をインストール
 
-アクセスURL: `http://localhost:8000`
+   ```bash
+   docker compose exec app composer install
+   ```
 
-#### テストユーザー
-| メール | パスワード | 種別 |
-|---|---|---|
-| user1@example.com | password | 一般ユーザー |
-| user2@example.com | password | 一般ユーザー |
-| user3@example.com | password | 管理者 |
+5. アプリケーションキーを生成
 
-### クエリパラメータ（一覧取得時）
-```
-GET /api/v1/attendance-records?user_id=1&date=2024-01-15&month=2024-01&per_page=20&page=1
-```
+   ```bash
+   docker compose exec app php artisan key:generate
+   ```
 
-| パラメータ | 型 | 説明 |
-|---|---|---|
-| `user_id` | integer | ユーザーID（オプション） |
-| `date` | date | 特定日付（形式: Y-m-d） |
-| `month` | string | 月単位（形式: Y-m） |
-| `per_page` | integer | ページあたりレコード数（1-100） |
-| `page` | integer | ページ番号 |
+6. マイグレーションを実行
 
-### レスポンス例（GET一覧）
-```json
-{
-  "data": [
-    {
-      "id": 1,
-      "user_id": 1,
-      "date": "2024-01-15",
-      "clock_in": "09:00:00",
-      "clock_out": "18:00:00",
-      "status": "finished",
-      "breaks": [
-        {
-          "break_start": "12:00:00",
-          "break_end": "13:00:00"
-        }
-      ],
-      "comment": "通常勤務"
-    }
-  ],
-  "meta": {
-    "current_page": 1,
-    "per_page": 20,
-    "total": 45
-  }
-}
-```
+   ```bash
+   docker compose exec app php artisan migrate
+   ```
 
-### エラーレスポンス
-| ステータス | レスポンス |
-|---|---|
-| 404 | `{ "error": "勤怠情報が見つかりませんでした。" }` |
-| 422 | `{ "message": "...", "errors": { "field": ["エラーメッセージ"] } }` |
-| 403 | `{ "error": "この操作を実行する権限がありません。" }` |
+7. ダミーデータを投入（Seeder）
 
----
+   ```bash
+   docker compose exec app php artisan db:seed
+   ```
 
-## 🧪 テスト
+8. ブラウザでアクセス
+
+   ```
+   http://localhost/
+   ```
 
 ### テスト実行
+
 ```bash
-# 全テスト実行
-php artisan test
-
-# 特定ファイルのテスト
-php artisan test tests/Feature/AuthTest.php
-
-# カバレッジレポート生成
-php artisan test --coverage
+docker compose exec app php artisan test
 ```
 
-## 📊 データベース設計
+---
 
-### テーブル一覧
+## 4. ER図
+
 <img src="index.drawio.png">
+
+---
+
+## 5. テストユーザー
+
+Seeder実行後、以下のユーザーが作成されます。
+
+| ユーザー | メール | パスワード | 種別 |
+|---|---|---|---|
+| ユーザー1 | user1@example.com | password | 一般（メール認証済み） |
+| ユーザー2 | user2@example.com | password | 一般（メール認証済み） |
+| ユーザー3 | user3@example.com | password | 管理者（admin_status=true） |
+
+なお、ユーザー1にはマイ勤怠レポート機能の検証用に、過去5ヶ月分の通常勤務データと、当月17日分の通常・残業・遅刻・早退・長時間労働パターンを含む意図的なダミーデータが投入されています。
+
+---
+
+## 6. URL一覧
+
+### 一般ユーザー
+
+| 画面 | URL |
+|---|---|
+| 会員登録画面 | /register |
+| ログイン画面 | /login |
+| 打刻画面 | /attendance |
+| 勤怠一覧画面 | /attendance/list |
+| 勤怠詳細画面 | /attendance/detail/{id} |
+| 申請一覧画面 | /stamp_correction_request/list |
+| マイ勤怠レポート画面 | /attendance/report |
+
+### 管理者
+
+| 画面 | URL |
+|---|---|
+| ログイン画面 | /admin/login |
+| 勤怠一覧画面 | /admin/attendance/list |
+| 勤怠詳細画面 | /admin/attendance/{id} |
+| スタッフ一覧画面 | /admin/staff/list |
+| スタッフ別勤怠一覧画面 | /admin/attendance/staff/{id} |
+| 申請一覧画面 | /stamp_correction_request/list（認証ミドルウェアで一般と区別） |
+| 修正申請承認画面 | /stamp_correction_request/approve/{attendance_correct_request_id} |
+

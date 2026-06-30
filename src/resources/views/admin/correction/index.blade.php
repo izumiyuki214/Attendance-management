@@ -10,13 +10,13 @@
 
     <div class="correction-list__tabs">
         <a
-            href="{{ route('correction.list', ['status' => 'pending']) }}"
+            href="{{ route('admin.correction.list', ['status' => 'pending']) }}"
             class="correction-list__tab {{ $status === 'pending' ? 'correction-list__tab--active' : '' }}"
         >
             承認待ち
         </a>
         <a
-            href="{{ route('correction.list', ['status' => 'approved']) }}"
+            href="{{ route('admin.correction.list', ['status' => 'approved']) }}"
             class="correction-list__tab {{ $status === 'approved' ? 'correction-list__tab--active' : '' }}"
         >
             承認済み
@@ -41,7 +41,7 @@
                         {{ $correction->status === 'pending' ? '承認待ち' : '承認済み' }}
                     </td>
                     <td class="correction-table__td">
-                        {{ auth()->user()->name }}
+                        {{ $correction->user->name }}
                     </td>
                     <td class="correction-table__td">
                         {{ \Carbon\Carbon::parse($correction->attendanceRecord->date)->format('Y/m/d') }}
@@ -54,7 +54,7 @@
                     </td>
                     <td class="correction-table__td">
                         <a
-                            href="{{ url('/attendance/detail/' . $correction->attendance_record_id) }}"
+                            href="{{ route('admin.correction.show', $correction->id) }}"
                             class="correction-table__link"
                         >
                             詳細
