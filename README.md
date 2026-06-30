@@ -1,4 +1,4 @@
-# 勤怠管理システム（atte）
+# 勤怠管理システム
 
 ## 1. サービス概要
 
@@ -39,17 +39,29 @@
 1. リポジトリをクローン
 
    ```bash
-   git clone <repository-url>
-   cd atte
+   git clone https://github.com/izumiyuki214/Attendance-management.git
+   cd Attendance-management
    ```
 
 2. 環境変数ファイルを作成
 
    ```bash
-   cp .env.example .env
+   cp src/.env.example src/.env
    ```
 
-   `.env` のDB接続情報・メール設定（Mailhog/Mailtrap）を必要に応じて編集してください。
+   ```bash
+   DB_CONNECTION=mysql
+   DB_HOST=mysql
+   DB_PORT=3306
+   DB_DATABASE=laravel_db
+   DB_USERNAME=laravel_user
+   DB_PASSWORD=
+
+   MAIL_FROM_ADDRESS="test@example.com"
+
+   STRIPE_KEY=
+   STRIPE_SECRET=
+   ```
 
 3. Dockerコンテナを起動
 
@@ -83,15 +95,22 @@
 
 8. ブラウザでアクセス
 
-   ```
-   http://localhost/
+   一般ログイン画面
+   http://localhost/login
+
+   管理者ログイン画面
+   http://localhost/admin/login
+
+   権限関係で開けない場合
+   ```bash
+   sudo chmod -R 777 *
    ```
 
 ### テスト実行
 
-```bash
-docker compose exec app php artisan test
-```
+   ```bash
+   docker compose exec app php artisan test
+   ```
 
 ---
 
