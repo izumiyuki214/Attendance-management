@@ -20,7 +20,7 @@
 | 認証 | Laravel Fortify |
 | バリデーション | FormRequest |
 | API認証 | Laravel Sanctum |
-| メール認証 | Mailhog または Mailtrap |
+| メール認証 | Mailhog |
 | テスト | PHPUnit |
 | 開発環境 | Docker（Windows + WSL2） |
 | フロントエンド | Blade テンプレート、CSS（個別ファイル管理） |
