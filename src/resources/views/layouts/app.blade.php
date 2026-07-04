@@ -30,6 +30,7 @@
                         {{-- 一般：退勤済み --}}
                         <a href="{{ route('attendance.list') }}" class="header__link">今月の出勤一覧</a>
                         <a href="{{ route('correction.list') }}" class="header__link">申請一覧</a>
+                        <a href="{{ url('/attendance/report') }}" class="header__link">レポート</a>
                         <form action="{{ route('logout') }}" method="POST" class="header__logout-form">
                             @csrf
                             <button type="submit" class="header__link header__logout-button">ログアウト</button>
