@@ -58,9 +58,6 @@
    DB_PASSWORD=
 
    MAIL_FROM_ADDRESS="test@example.com"
-
-   STRIPE_KEY=
-   STRIPE_SECRET=
    ```
 
 3. Dockerコンテナを起動
@@ -72,25 +69,25 @@
 4. Composer依存関係をインストール
 
    ```bash
-   docker compose exec app composer install
+   docker compose exec php composer install
    ```
 
 5. アプリケーションキーを生成
 
    ```bash
-   docker compose exec app php artisan key:generate
+   docker compose exec php php artisan key:generate
    ```
 
 6. マイグレーションを実行
 
    ```bash
-   docker compose exec app php artisan migrate
+   docker compose exec php php artisan migrate
    ```
 
 7. ダミーデータを投入（Seeder）
 
    ```bash
-   docker compose exec app php artisan db:seed
+   docker compose exec php php artisan db:seed
    ```
 
 8. ブラウザでアクセス
@@ -109,7 +106,7 @@
 ### テスト実行
 
    ```bash
-   docker compose exec app php artisan test
+   docker compose exec php php artisan test
    ```
 
 ---
