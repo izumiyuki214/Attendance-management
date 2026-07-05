@@ -98,7 +98,7 @@
    管理者ログイン画面
    http://localhost/admin/login
 
-権限関係で開けない場合
+### 権限関係で開けない場合
    ```bash
    sudo chmod -R 777 *
    ```
