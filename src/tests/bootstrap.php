@@ -14,9 +14,9 @@ $dbName   = $_ENV['DB_DATABASE'] ?? 'demo_test';
 try {
     $pdo = new PDO("mysql:host={$host};port={$port}", $user, $password);
     $pdo->exec(
-        "CREATE DATABASE IF NOT EXISTS \`{$dbName}\`
+        "CREATE DATABASE IF NOT EXISTS `{$dbName}`
          CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
     );
-} catch (PDOException \$e) {
+} catch (PDOException $e) {
     // 接続失敗時はLaravel側のエラーメッセージに任せる
 }
