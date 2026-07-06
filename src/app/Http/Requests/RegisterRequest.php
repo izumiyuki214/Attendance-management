@@ -34,5 +34,6 @@ class RegisterRequest extends FormRequest
             'password.confirmed'             => 'パスワードと一致しません',
             'password_confirmation.required' => 'パスワードと一致しません',
         ];
+        
     }
 }
