@@ -12,8 +12,8 @@
 - 一般ユーザーの画面において、参考デザインに準拠した場合に勤怠レポート画面に遷移する手段がない状態でしたので、「ログアウト」の左に「レポート」を追加し、押下した際に勤怠レポート画面に遷移する形に仕様を変更しています。
 
 **既知の脆弱性について**
-composer audit にて laravel/framework（High: CRLF injection in default email rule / PKSA-3r5d-mb8f-1qw9）が検出されますが、これはLaravel 12.60.0以降で修正されたものです。本プロジェクトはLaravel 8（EOL）を使用しており、8系向けの修正版は存在しないため、アップグレードによる根本対応はできません。
-対策として、RegisterRequest.php のメールアドレスバリデーションに制御文字（CR/LF）を拒否する regex ルールを追加し、実際の攻撃経路を遮断しています。
+- composer audit にて laravel/framework（High: CRLF injection in default email rule / PKSA-3r5d-mb8f-1qw9）が検出されますが、これはLaravel 12.60.0以降で修正されたものです。本プロジェクトはLaravel 8（EOL）を使用しており、8系向けの修正版は存在しないため、アップグレードによる根本対応はできません。
+- 対策として、RegisterRequest.php のメールアドレスバリデーションに制御文字（CR/LF）を拒否する regex ルールを追加し、実際の攻撃経路を遮断しています。
 ---
 
 ## 2. 使用技術
